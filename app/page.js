@@ -1,6 +1,9 @@
+'use client'
+import { useState } from 'react';
 import { FaTwitter, FaInstagram, FaLinkedin, FaYoutube, FaShopify } from "react-icons/fa"
 import SignupForm from "./components/SignupForm"
 import Image from 'next/image'
+import ImageModal from './components/ImageModal';
 
 const links = [
   { title: "Free Retreat Guide - Mental Detox", url: "#" },
@@ -19,6 +22,8 @@ const socialIcons = [
 ]
 
 export default function Home() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <main className="flex flex-col items-center justify-center min-h-screen p-4 text-white">
       <div className="w-full max-w-md space-y-8">
@@ -29,7 +34,13 @@ export default function Home() {
             height={700}
             src="/tivij.png"
             alt="Profile"
-            className="w-24 h-24 rounded-full border-4 border-white shadow-lg"
+            className="w-24 h-24 rounded-full border-4 border-white shadow-lg cursor-pointer hover:opacity-90 transition-opacity"
+            onClick={() => setIsModalOpen(true)}
+          />
+          <ImageModal
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+            imageUrl="/tivij.png"
           />
           <h1 className="text-2xl font-bold">Tivij</h1>
           <p className="text-center text-sm">Digital creator | Lover of God | Beauty enthusiast</p>
