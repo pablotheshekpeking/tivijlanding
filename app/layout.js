@@ -1,8 +1,8 @@
 import "./globals.css"
 
 export const metadata = {
-  title: "AllMyLinks Clone",
-  description: "A modern landing page for all your important links",
+  title: "AllMyLinks By Tivij",
+  description: "Welcome to my AllMyLinks page. Here you can find all my links in one place. 🔗",
 }
 
 export default function RootLayout({ children }) {
