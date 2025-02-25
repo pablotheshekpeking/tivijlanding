@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react';
-import { FaTwitter, FaInstagram, FaLinkedin, FaYoutube, FaShopify } from "react-icons/fa"
+import { FaTwitter, FaInstagram, FaLinkedin, FaYoutube, FaShopify, FaBlog } from "react-icons/fa"
 import SignupForm from "./components/SignupForm"
 import Image from 'next/image'
 import ImageModal from './components/ImageModal';
@@ -19,6 +19,7 @@ const socialIcons = [
   { Icon: FaLinkedin, url: "#" },
   { Icon: FaYoutube, url: "#" },
   { Icon: FaShopify, url: "#" },
+  { Icon: FaBlog, url: "#" },
 ]
 
 export default function Home() {
@@ -69,6 +70,12 @@ export default function Home() {
         {/* Add this before the closing div */}
         <div className="mt-8">
           <SignupForm />
+        </div>
+
+        <div className="mt-8">
+          <div className="flex flex-col items-center space-y-4">
+            <p className="text-center text-sm"><a href="#" className="text-pink-200 hover:text-pink-300 transition-colors" target="_blank" rel="noopener noreferrer">@BeautyByTivij</a>, All rights reserved. Developed by <a href="https://pebbleinc.vercel.app/" className="text-pink-200 hover:text-pink-300 transition-colors" target="_blank" rel="noopener noreferrer">PebbleInc</a></p>
+          </div>
         </div>
       </div>
     </main>
