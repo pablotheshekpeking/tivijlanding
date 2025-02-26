@@ -2,22 +2,6 @@ export async function POST(request) {
   try {
     const { email } = await request.json();
     
-    // First, get the campaign details to ensure we have the correct ID
-    const campaignResponse = await fetch('https://api.getresponse.com/v3/campaigns', {
-      method: 'GET',
-      headers: {
-        'X-Auth-Token': `api-key ${process.env.GETRESPONSE_API_KEY}`,
-        'Content-Type': 'application/json',
-      },
-    });
-
-    const campaigns = await campaignResponse.json();
-    const campaign = campaigns.find(c => c.campaignId === process.env.GETRESPONSE_LIST_ID);
-
-    if (!campaign) {
-      throw new Error('Campaign not found');
-    }
-
     const response = await fetch('https://api.getresponse.com/v3/contacts', {
       method: 'POST',
       headers: {
@@ -27,10 +11,9 @@ export async function POST(request) {
       body: JSON.stringify({
         email,
         campaign: {
-          campaignId: campaign.campaignId
+          campaignId: process.env.GETRESPONSE_LIST_ID
         },
-        dayOfCycle: 0,
-        ipAddress: request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip'),
+        dayOfCycle: 0
       }),
     });
 
