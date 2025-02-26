@@ -17,10 +17,20 @@ export async function POST(request) {
       }),
     });
 
+    const data = await response.json();
+
     if (!response.ok) {
-      const errorData = await response.json();
-      console.error('GetResponse error:', errorData);
-      throw new Error(errorData.message || 'GetResponse API error');
+      // Check if it's a duplicate contact error
+      if (data.httpStatus === 409 || data.code === 1008) {
+        return new Response(JSON.stringify({ 
+          error: 'Already subscribed',
+          message: 'This email is already subscribed to our newsletter!'
+        }), {
+          status: 409,
+          headers: { 'Content-Type': 'application/json' },
+        });
+      }
+      throw new Error(data.message || 'GetResponse API error');
     }
 
     return new Response(JSON.stringify({ success: true }), {
@@ -31,7 +41,7 @@ export async function POST(request) {
     console.error('Subscription error:', error);
     return new Response(JSON.stringify({ 
       error: 'Failed to subscribe',
-      details: error.message 
+      message: 'Something went wrong. Please try again.'
     }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' },

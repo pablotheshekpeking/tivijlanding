@@ -5,11 +5,13 @@ export default function SignupForm() {
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState('');
   const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setStatus('');
+    setErrorMessage('');
 
     try {
       const response = await fetch('/api/subscribe', {
@@ -27,9 +29,11 @@ export default function SignupForm() {
         setEmail('');
       } else {
         setStatus('error');
+        setErrorMessage(data.message || 'Something went wrong. Please try again.');
       }
     } catch (error) {
       setStatus('error');
+      setErrorMessage('Something went wrong. Please try again.');
     }
 
     setLoading(false);
@@ -65,7 +69,7 @@ export default function SignupForm() {
         <p className="mt-4 text-sm text-center text-green-300">Thanks for subscribing!</p>
       )}
       {status === 'error' && (
-        <p className="mt-4 text-sm text-center text-red-300">Something went wrong. Please try again.</p>
+        <p className="mt-4 text-sm text-center text-red-300">{errorMessage}</p>
       )}
     </div>
   );
